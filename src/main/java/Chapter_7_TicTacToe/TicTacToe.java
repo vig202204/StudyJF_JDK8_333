@@ -1,16 +1,20 @@
 package Chapter_7_TicTacToe;
-
 /**
  * Гра хрестики-нулики
  * на дошці 3x3
  * */
 
 // Практичні вправи:
-// 1. Додайте на верхню панель класу TicTacToe два написи для підрахунку
+// Практична вправа №1. Додайте на верхню панель класу TicTacToe два написи для підрахунку
 // виграшів і програшів. Для цього оголосіть дві змінні в класі і збільшуйте від-
 // повідну змінну щоразу, коли людина виграє або програє. Рахунок повинен
 // оновлюватися відразу після того, як програма виводить повідомлення
 // "You won" або "You lost".
+
+// Практична вправа №2. Наша програма дозволяє клацати на клітинці, в якій вже є
+// хрестик або нулик. Це помилка! Програма продовжує працювати, як ніби ви зробили
+// правильний хід. Змініть текст програми так, щоб натискання на такі клітинки
+// ігнорувалися.
 
 import java.awt.*;
 import java.awt.event.*;
@@ -48,8 +52,8 @@ public class TicTacToe extends Applet implements ActionListener{
         topPanel.add(newGameButton);
 
         scoreCountResult = new Label("Yor score : " +
-                                            scoreYourWins + " : " +
-                                            scoreCompWins); //Практична вправа №1
+                scoreYourWins + " : " +
+                scoreCompWins); // Практична вправа №1
         topPanel.add(scoreCountResult);
         this.add(topPanel,"North");
 
@@ -89,8 +93,8 @@ public class TicTacToe extends Applet implements ActionListener{
             emptySquaresLeft=9;
 
             scoreCountResult.setText("Yor score = " +
-                                        scoreYourWins + " : " +
-                                        scoreCompWins); //Практична вправа №1
+                    scoreYourWins + " : " +
+                    scoreCompWins); // Практична вправа №1
 
             score.setText("Your turn!");
             newGameButton.setEnabled(false);
@@ -102,6 +106,7 @@ public class TicTacToe extends Applet implements ActionListener{
 
             if (theButton == squares[i]) {
                 squares[i].setLabel("X");
+                squares[i].setEnabled(false);
                 winner = lookForWinner();
                 if (!"".equals(winner)) {
                     endTheGame();
@@ -134,7 +139,7 @@ public class TicTacToe extends Applet implements ActionListener{
             score.setText("It's a tie!"); }
     }
     //кінець методу actionPerformed
-    /**
+    /*
      * Цей метод викликається після кожного ходу, щоб дізнатись,
      * чи є переможець. Він перевіряє кожен ряд, колонку та
      * діагональ, щоб знайти три клітинки з однаковими написами
@@ -197,7 +202,7 @@ public class TicTacToe extends Applet implements ActionListener{
         }
         return theWinner;
     }
-    /**
+    /*
      * Цей метод застосовує набір правил, щоб знайти
      * кращий комп’ютерний хід. Якщо гарний хід
      * не знайдено, вибирається випадкова клітинка.
@@ -224,6 +229,7 @@ public class TicTacToe extends Applet implements ActionListener{
             selectedSquare = getRandomSquare();
         }
         squares[selectedSquare].setLabel("O");
+        squares[selectedSquare].setEnabled(false); // Практична вправа №2
     }
 
 
@@ -334,7 +340,7 @@ public class TicTacToe extends Applet implements ActionListener{
         return -1;
     } //кінець методу findEmptySquare()
 
-    /**
+    /*
      * Цей метод вибирає будь-яку пусту клітинку
      * @return випадково вибраний номер клітинки
      */
@@ -353,7 +359,7 @@ public class TicTacToe extends Applet implements ActionListener{
     /*
      * Цей метод виділяє виграшну лінію.
      * @param преша, друга і третя клітинки для виділення
-     * */
+     */
     void highlightWinner(int win1, int win2, int win3) {
         squares[win1].setBackground(Color.lightGray);
         squares[win2].setBackground(Color.lightGray);
