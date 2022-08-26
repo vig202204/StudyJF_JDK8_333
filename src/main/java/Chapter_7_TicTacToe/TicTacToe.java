@@ -3,8 +3,14 @@ package Chapter_7_TicTacToe;
 /**
  * Гра хрестики-нулики
  * на дошці 3x3
- * Запускати із JDK 8 !!!
  * */
+
+// Практичні вправи:
+// 1. Додайте на верхню панель класу TicTacToe два написи для підрахунку
+// виграшів і програшів. Для цього оголосіть дві змінні в класі і збільшуйте від-
+// повідну змінну щоразу, коли людина виграє або програє. Рахунок повинен
+// оновлюватися відразу після того, як програма виводить повідомлення
+// "You won" або "You lost".
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +20,9 @@ public class TicTacToe extends Applet implements ActionListener{
     Button[] squares;
     Button newGameButton;
     Label score;
+    Label scoreCountResult; //Практична вправа №1
+    int scoreYourWins = 0;  //Практична вправа №1
+    int scoreCompWins = 0;  //Практична вправа №1
     int emptySquaresLeft=9;
 
     /**
@@ -23,22 +32,34 @@ public class TicTacToe extends Applet implements ActionListener{
     public void init(){
 //Встановлюємо менеджер розташування аплету, шрифт та колір
         this.setLayout(new BorderLayout());
-        this.setBackground(Color.CYAN);
+        this.setBackground(Color.lightGray);
 //Змінюємо шрифт аплету так, щоб він був жирним //і мав розмір 20
-        Font appletFont=new Font("Monospaced",Font.BOLD, 20); this.setFont(appletFont);
+        Font appletFont=new Font("Monospased",Font.BOLD, 20);
+        this.setFont(appletFont);
 
-//Створюємо кнопку "Нова гра" і реєструємо в ній /
+//Створюємо кнопку "Нова гра" і реєструємо в ній
 //слухач дії
         newGameButton=new Button("New Game");
         newGameButton.addActionListener(this);
+
+
         Panel topPanel=new Panel();
+        topPanel.setLayout(new GridLayout(2,2));
         topPanel.add(newGameButton);
+
+        scoreCountResult = new Label("Yor score : " +
+                                            scoreYourWins + " : " +
+                                            scoreCompWins); //Практична вправа №1
+        topPanel.add(scoreCountResult);
         this.add(topPanel,"North");
+
         Panel centerPanel=new Panel();
         centerPanel.setLayout(new GridLayout(3,3));
         this.add(centerPanel,"Center");
+
         score=new Label("Your turn!");
         this.add(score,"South");
+
 //створюємо масив, щоб зберігати посилання на 9 кнопок
         squares=new Button[9];
 //Створюємо кнопки, зберігаємо посилання на них в масиві
@@ -66,6 +87,11 @@ public class TicTacToe extends Applet implements ActionListener{
                 squares[i].setBackground(Color.ORANGE);
             }
             emptySquaresLeft=9;
+
+            scoreCountResult.setText("Yor score = " +
+                                        scoreYourWins + " : " +
+                                        scoreCompWins); //Практична вправа №1
+
             score.setText("Your turn!");
             newGameButton.setEnabled(false);
             return; //виходимо з методу
@@ -91,17 +117,28 @@ public class TicTacToe extends Applet implements ActionListener{
         } //кінець циклу for
 
         if (winner.equals("X")) {
+            scoreYourWins ++; //Практична вправа №1
             score.setText("You won!");
+            scoreCountResult.setText("Yor score = " +
+                    scoreYourWins + " : " +
+                    scoreCompWins);
+
         } else if (winner.equals("O")){
+            scoreCompWins++; //Практична вправа №1
             score.setText("You lost!");
+            scoreCountResult.setText("Yor score = " +
+                    scoreYourWins + " : " +
+                    scoreCompWins);
+
         } else if (winner.equals("T")){
             score.setText("It's a tie!"); }
     }
     //кінець методу actionPerformed
     /**
-     * Цей метод викликається після кожного ходу, щоб дізнатись, * чи є переможець. Він перевіряє кожен ряд, колонку та
-     * діагональ, щоб знайти три клітинки з однаковими написами * (не пустими)
-     * @return "X", "O", "T" – нічия, "" - ще немає переможця
+     * Цей метод викликається після кожного ходу, щоб дізнатись,
+     * чи є переможець. Він перевіряє кожен ряд, колонку та
+     * діагональ, щоб знайти три клітинки з однаковими написами
+     * (не пустими) @return "X", "O", "T" – нічия, "" - ще немає переможця
      */
     String lookForWinner() {
         String theWinner = "";
@@ -188,7 +225,6 @@ public class TicTacToe extends Applet implements ActionListener{
         }
         squares[selectedSquare].setLabel("O");
     }
-
 
 
     /*
@@ -319,9 +355,9 @@ public class TicTacToe extends Applet implements ActionListener{
      * @param преша, друга і третя клітинки для виділення
      * */
     void highlightWinner(int win1, int win2, int win3) {
-        squares[win1].setBackground(Color.CYAN);
-        squares[win2].setBackground(Color.CYAN);
-        squares[win3].setBackground(Color.CYAN);
+        squares[win1].setBackground(Color.lightGray);
+        squares[win2].setBackground(Color.lightGray);
+        squares[win3].setBackground(Color.lightGray);
     }
     //Робимо недоступними клітинки та доступною
 //кнопку ”New Game”
@@ -331,4 +367,4 @@ public class TicTacToe extends Applet implements ActionListener{
             squares[i].setEnabled(false);
         }
     }
-} //кінець класу
+} //кінець класу} //кінець класу
