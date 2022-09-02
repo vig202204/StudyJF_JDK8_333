@@ -31,7 +31,21 @@ public class CalculatorEngineJF implements ActionListener{
 // якщо він не порожній.
 //Знак оклику - це оператор заперечення
         if (!"".equals(dispFieldText)) {
+            // (Я.Ф. стор. 156). Додавання обробки виключення
+            // для нецифрового вводу у поле калькулятора
+            try {
                 displayValue = Double.parseDouble(dispFieldText);
+            } catch (NumberFormatException ex) {
+//                Заміна на UserFriendly повідомлення
+//                throw new RuntimeException(ex);
+                javax.swing.JOptionPane.showConfirmDialog(null,
+                        "Будь ласка, введіть чісло",
+                        "Неправильне введення",
+                        JOptionPane.PLAIN_MESSAGE);
+                return;
+            } finally {
+                parent.displayField.setText ("");
+            }
         }
         Object src = e.getSource();
 
