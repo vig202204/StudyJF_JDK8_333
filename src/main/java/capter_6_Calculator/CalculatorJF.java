@@ -2,6 +2,7 @@ package capter_6_Calculator;
 import javax.swing.*;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.event.WindowListener;
 
 public class CalculatorJF {
 
@@ -84,6 +85,7 @@ public class CalculatorJF {
         //Показуємо вікно
         frame.setVisible (true);
 
+
         //Створюємо екземпляр слухача подій і
         //Реєструємо його в кожній кнопці
         CalculatorEngineJF calcEngineJF = new CalculatorEngineJF(this);
@@ -103,7 +105,13 @@ public class CalculatorJF {
         buttonDivide.addActionListener(calcEngineJF);
         buttonMultiply.addActionListener(calcEngineJF);
         buttonEqual.addActionListener(calcEngineJF);
+        windowClosing();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    private void windowClosing() {
+    }
+
     public static void main(String[] args) {
 
         //Створюємо екземпляр класу "Калькулятор"
