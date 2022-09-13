@@ -2,6 +2,7 @@ package chapter_9_IO_streams;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /* * *
 * Практичні вправи для розумників і розумниць
@@ -14,15 +15,15 @@ import java.awt.*;
 * Спробуйте заново використовувати код з попередніх завдань, але без прямого копіювання / вставки.
 *   Виконання вправи:
 *   План побудови застосунку:
-*       1. Написання swing-інтерфейсу для копиювання файлу без можливості його перейменування.
-*           1.1. Поле "JTextField displaySource" та "JTextField displayDestination" - ReadOnly.
+*       1. Написання swing-інтерфейсу для копиювання файлу без можливості його перейменування. (реалізовано)
+*           1.1. Поле "JTextField displaySource" - ReadOnly та "JTextField displayDestination" - Edited. (реалізовано)
 *       2. Написання слухача подій:
 *           2.1. Використовуємо JFileChooser() задля побудови діалогу з вибору source-файлу для
-*                подальшого копіювання;
-*           2.2. Пошук destination-каталогу починається з поточного каталогу обраного source-файланазва;
-*           2.3. У полі "Copy to:" видображується тилькі destination-каталог за використання JFileChooser.DIRECTORIES_ONLY;
-*           2.4. Написання методу actionPerformed().
-*           2.5. Нааписання коду по завершенню роботи застосунку.
+*                подальшого копіювання; (реалізовано)
+*           2.2. Пошук destination-каталогу починається з поточного каталогу обраного source-файланазва; (реалізовано)
+*           2.3. У полі "Copy to:" видображується тилькі destination-каталог за використання JFileChooser.DIRECTORIES_ONLY; (реалізовано)
+*           2.4. Написання методу actionPerformed(). (реалізовано)
+*           2.5. Нааписання коду по завершенню роботи застосунку. (реалізовано)
 * * */
 public class FileCopyUI {
     JPanel windowContent = new JPanel();
@@ -34,6 +35,7 @@ public class FileCopyUI {
     JTextField displaySource = new JTextField("");
 
     JTextField displayDestination = new JTextField("");
+    JTextField displayDestinationPrim = new JTextField("");
 
     JLabel lbCopyFrom = new JLabel(" Copy from:");
     JLabel lbCopyTo = new JLabel(" Copy to:");
@@ -41,7 +43,7 @@ public class FileCopyUI {
     // Створюємо конструктор
     FileCopyUI(){
         displaySource.setEnabled(false);
-        displayDestination.setEnabled(false);
+        displayDestination.setEnabled(true);
 
         // Встановлюємо менеджер розташування панелі
         BorderLayout borderLayout = new BorderLayout();
@@ -89,6 +91,7 @@ public class FileCopyUI {
         FileCopyUIEngine copyUIEngine = new FileCopyUIEngine(this);
         buttonFrom.addActionListener(copyUIEngine);
         buttonTo.addActionListener(copyUIEngine);
+        buttonRunCopy.addActionListener(copyUIEngine);
 
         // Закінчення роботи застосунку
         windowClosing();
@@ -98,7 +101,7 @@ public class FileCopyUI {
     private void windowClosing() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
         //Створюємо екземпляр класу "Калькулятор"
         FileCopyUI filecopy = new FileCopyUI();
