@@ -1,9 +1,41 @@
 package chapter_10_Misc;
 public class Pet {
-    int age;
-    float wieght;
+    private int age;
+    private float wieght;
     float height;
-    String color;
+    private String color;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public float getWieght() {
+        return wieght;
+    }
+
+    public void setWieght(float wieght) {
+        this.wieght = wieght;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public void sleep() {
         System.out.println("Надобранич! До завтра");
