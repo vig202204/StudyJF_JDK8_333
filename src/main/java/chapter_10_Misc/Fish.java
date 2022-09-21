@@ -3,30 +3,11 @@ package chapter_10_Misc;
 
 public class Fish extends Pet {
 
+    int currentDepth;
 
     public Fish(int i) {
-       // super();
-       int currentDepth = i;
-
+       currentDepth = i;
     }
-    public Fish() {
-
-    }
-
-    public Fish(String s) {
-        String currentDepth = s;
-
-    }
-
-    // ??? автоматично запропоновано створення конструктора ???
-//    public Fish(int i) {
-//        super();
-//    }
-//    public Fish(String i) {
-//        super();
-//        String currentDepth = "0";
-//    }
-
 
     public int dive(int howDeep) {
         int currentDepth = 0;

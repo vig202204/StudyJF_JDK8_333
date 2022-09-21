@@ -4,7 +4,7 @@ public class FishMaster {
 
     public static void main(String[] args) {
 
-        Fish myFish = new Fish();
+        Fish myFish = new Fish(10);
         // Pet myPet = new Pet();
 
         // Спробуємо змусити нашу рибу зануритисяніжче 100 метрів
